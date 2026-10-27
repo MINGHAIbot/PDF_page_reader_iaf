@@ -1,0 +1,64 @@
+{
+  "_note": "whole_book_report：两个 agent 共用全部笔记上下文，分别写导读（guide）与浓缩版（digest）。context_files 里的目录条目 workspace/whole_book_report/input_notes 会在运行时展开为全部笔记（按文件名排序）。exit_on_tools/max_tool_loops 由引擎支持；未配置时行为不变。",
+  "display_name": "Whole Book Report Dispatch",
+  "agent_id": "whole_book_report",
+  "can_hold_mic": false,
+  "agents": {
+    "guide": {
+      "display_name": "Book Guide Writer",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "temperature": 0.4,
+      "top_p": 0.95,
+      "role": "guide",
+      "reasoning": {
+        "effort": "high",
+        "exclude": false,
+        "max_tokens": null
+      },
+      "context_files": [
+        "prompt_base/whole_book_report/rules/persona.md",
+        "prompt_base/whole_book_report/rules/guide_task.md",
+        "workspace/whole_book_report/input_notes"
+      ],
+      "max_tokens": 50000,
+      "exit_on_tools": [
+        "write_book_guide"
+      ],
+      "max_tool_loops": 3
+    },
+    "digest": {
+      "display_name": "Book Digest Writer",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "temperature": 0.45,
+      "top_p": 0.95,
+      "role": "digest",
+      "reasoning": {
+        "effort": "high",
+        "exclude": false,
+        "max_tokens": null
+      },
+      "context_files": [
+        "prompt_base/whole_book_report/rules/persona.md",
+        "prompt_base/whole_book_report/rules/digest_task.md",
+        "workspace/whole_book_report/input_notes"
+      ],
+      "max_tokens": 50000,
+      "exit_on_tools": [
+        "write_book_digest"
+      ],
+      "max_tool_loops": 3
+    }
+  },
+  "max_context": 200000,
+  "session_close": {
+    "enabled": false
+  },
+  "v4_rules": {
+    "compact": "rules/compact_v4.md"
+  },
+  "compaction": {
+    "enabled": false
+  }
+}

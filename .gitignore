@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environment (the engine expects it at IAF_AI/.venv)
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# Input books are yours, not the project's
+books/inbox/*
+!books/inbox/.gitkeep
+books/processed/
+books/storage_base/
+
+# Pipeline intermediates and products
+output/
+deliverables/
+workspace/
+
+# Engine session history — each chunk holds twenty base64 page images
+IAF_AI/dispatch/*/sessions/
+IAF_AI/dispatch/*/staging/

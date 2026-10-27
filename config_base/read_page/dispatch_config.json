@@ -1,0 +1,41 @@
+{
+  "_note": "read_page：逐页读 PNG，只提炼新增页，通过 write_note 落盘。标准模式（无 free_search），自动加载 tools/*_tools.py。exit_on_tools/max_tool_loops 由引擎支持：工具写完后立即结束循环，避免重复发送整轮图片。",
+  "display_name": "Read Page Dispatch",
+  "agent_id": "read_page",
+  "can_hold_mic": false,
+  "agents": {
+    "core": {
+      "display_name": "Page Reader",
+      "provider": "deepseek",
+      "model": "deepseek-flash",
+      "temperature": 0.3,
+      "top_p": 0.9,
+      "role": "core",
+      "reasoning": {
+        "effort": "medium",
+        "exclude": false,
+        "max_tokens": null
+      },
+      "context_files": [
+        "prompt_base/read_page/rules/persona.md",
+        "prompt_base/read_page/rules/note_template.md",
+        "prompt_base/read_page/rules/task.md"
+      ],
+      "max_tokens": 50000,
+      "exit_on_tools": [
+        "write_note"
+      ],
+      "max_tool_loops": 3
+    }
+  },
+  "max_context": 200000,
+  "session_close": {
+    "enabled": false
+  },
+  "v4_rules": {
+    "compact": "rules/compact_v4.md"
+  },
+  "compaction": {
+    "enabled": false
+  }
+}
